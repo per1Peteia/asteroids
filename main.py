@@ -14,13 +14,19 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # get a new GUI
 
+    clock = pygame.time.Clock()
+    dt = 0
+
     while True:                                                     # create a game loop
         for event in pygame.event.get():                            # makes window close button work
             if event.type == pygame.QUIT:                           # by checking if player closed window
                 return    
         screen.fill((0, 0 , 0))                                     # fill the screen with black color
+        
         pygame.display.flip()                                       # refresh the screen
-
+        
+        dt = (clock.tick(60)) / 1000                                # pause the loop for 1/60th of a second
+                                                                    # assign return delta time to dt as seconds
 
 if __name__ == "__main__":
     main()
