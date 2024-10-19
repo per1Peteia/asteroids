@@ -5,6 +5,8 @@ import pygame
 
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
@@ -20,9 +22,14 @@ def main():
 
     updatable = pygame.sprite.Group()                               # create groups
     drawable = pygame.sprite.Group()
-    Player.containers = (updatable, drawable)                       # add Player class to both groups
+    asteroids = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)                       # add Player class to groups
+    Asteroid.containers = (updatable, drawable, asteroids)          # add Asteroid class to groups
+    AsteroidField.containers = (updatable)                          # add AsteroidField class to group
 
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)                # instanciate a player object
+    field = AsteroidField()                                         # instanciate an asteroid field object
 
     while True:                                                     # create a game loop
         for event in pygame.event.get():                            # makes window close button work
@@ -32,10 +39,10 @@ def main():
         screen.fill((0, 0 , 0))                                     # fill the screen with black color
         
         for object in drawable:
-            object.draw(screen)                                         # draw player on screen
+            object.draw(screen)                                     # draw player on screen
 
         for object in updatable:
-            object.update(dt)                                           # updates player position
+            object.update(dt)                                       # updates player position
 
         pygame.display.flip()                                       # refresh the screen
         
