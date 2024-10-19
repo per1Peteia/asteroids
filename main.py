@@ -4,6 +4,7 @@
 import pygame
 
 from constants import *
+from player import Player
 
 def main():
     pygame.init()
@@ -16,6 +17,7 @@ def main():
 
     clock = pygame.time.Clock()
     dt = 0
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
     while True:                                                     # create a game loop
         for event in pygame.event.get():                            # makes window close button work
@@ -23,6 +25,8 @@ def main():
                 return    
         screen.fill((0, 0 , 0))                                     # fill the screen with black color
         
+        player.draw(screen)                                         # draw player on screen
+
         pygame.display.flip()                                       # refresh the screen
         
         dt = (clock.tick(60)) / 1000                                # pause the loop for 1/60th of a second
