@@ -15,9 +15,14 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # get a new GUI
 
-    clock = pygame.time.Clock()
-    dt = 0
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    clock = pygame.time.Clock()                                     # instanciate a clock object
+    dt = 0                                                          # initialize delta time
+
+    updatable = pygame.sprite.Group()                               # create groups
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)                       # add Player class to both groups
+
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)                # instanciate a player object
 
     while True:                                                     # create a game loop
         for event in pygame.event.get():                            # makes window close button work
@@ -26,9 +31,11 @@ def main():
         
         screen.fill((0, 0 , 0))                                     # fill the screen with black color
         
-        player.draw(screen)                                         # draw player on screen
+        for object in drawable:
+            object.draw(screen)                                         # draw player on screen
 
-        player.update(dt)                                           # updates player position
+        for object in updatable:
+            object.update(dt)                                           # updates player position
 
         pygame.display.flip()                                       # refresh the screen
         
