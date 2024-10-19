@@ -2,11 +2,13 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 
 from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from circleshape import CircleShape
 
 def main():
     pygame.init()
@@ -43,6 +45,12 @@ def main():
 
         for object in updatable:
             object.update(dt)                                       # updates player position
+
+        for object in asteroids:
+            if object.collision_check(player):
+                print("Game over!")
+                sys.exit()
+
 
         pygame.display.flip()                                       # refresh the screen
         
